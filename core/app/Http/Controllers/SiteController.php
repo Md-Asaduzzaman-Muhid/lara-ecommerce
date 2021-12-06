@@ -5,6 +5,7 @@ use App\Models\AdminNotification;
 use App\Models\Frontend;
 use App\Models\Language;
 use App\Models\Page;
+use App\Models\User;
 use App\Models\SupportAttachment;
 use App\Models\SupportMessage;
 use App\Models\SupportTicket;
@@ -32,10 +33,14 @@ class SiteController extends Controller
         if ($reference) {
             session()->put('reference', $reference);
         }
+        $users = User::where('status',1)->paginate(getPaginate());
+        // dd($users);
+
+        // dd($user);
         
         $pageTitle = 'Home';
         $sections = Page::where('tempname',$this->activeTemplate)->where('slug','home')->first();
-        return view($this->activeTemplate . 'home', compact('pageTitle','sections'));
+        return view($this->activeTemplate . 'home', compact('pageTitle','sections','users'));
     }
 
     public function pages($slug)

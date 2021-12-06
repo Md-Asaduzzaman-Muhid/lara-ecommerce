@@ -1588,3 +1588,76 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+CREATE TABLE `products` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `sku` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'contains full details',
+  `price` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `discount` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `stock` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `color` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `size` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `weight` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0: inactive, 1: active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `products`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+
+CREATE TABLE `categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'contains full details',
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0: inactive, 1: active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+CREATE TABLE `sub_categories` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'contains full details',
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0: inactive, 1: active',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+ALTER TABLE `sub_categories`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `sub_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+CREATE TABLE `orders` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED NOT NULL DEFAULT 0,
+  `total` decimal(28,8) NOT NULL DEFAULT 0.00000000,
+  `products` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'contains full details',
+  `ship_name` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ship_district` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ship_police_station` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ship_post` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ship_phone` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ship_email` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ship_address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'contains full details',
+  `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0: placed, 1: processing, 2: accepted, 3: shipped, 4: hold , 8: delivered, 9: canceled',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+ALTER TABLE `orders`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;

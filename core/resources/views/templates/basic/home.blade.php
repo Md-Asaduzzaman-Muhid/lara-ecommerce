@@ -3,6 +3,26 @@
 @php
 	$blogs = getContent('blog.element');
 @endphp
+<section class="user-section bg-light">
+	<div class="container">
+		<div class="row">
+			@foreach($users as $user)
+			<div class="col-md-4 mb-4">
+				<div class="profile-single p-5 bg-white">
+					<div class="thum text-center">
+						<img src="{{ getImage(imagePath()['profile']['user']['path'].'/'.$user->image,imagePath()['profile']['user']['size'])}}" alt="@lang('Profile Image')" class="w-100">  
+					</div>
+					<div class="description">
+						<h3 class="text-center">{{$user->username}}</h3>
+					</div>
+					
+				</div>
+			</div>
+			@endforeach
+		</div>
+	</div>
+</section>
+
 <section class="mt-5">
 	<div class="container">
 		<div class="row justify-content-center">

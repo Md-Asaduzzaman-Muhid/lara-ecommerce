@@ -1,3 +1,28 @@
+.profile-single img{
+    border-radius: 50%;
+    height: 200px;
+    min-width: 200px;
+    max-width: 200px;
+	box-shadow: 0px 10px 20px -4px  hsl(218, 75%, 87%);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .btn:focus{
 	outline:none;
   	box-shadow:none;
