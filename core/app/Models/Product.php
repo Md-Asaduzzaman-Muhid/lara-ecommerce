@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    use HasFactory;
+    protected $guarded = ['id'];
+
+    public function subcategory()
+    {
+        return $this->belongsTo(SubCategory::class);
+    }
 }

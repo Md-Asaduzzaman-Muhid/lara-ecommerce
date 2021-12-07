@@ -87,7 +87,22 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
 
         Route::get('system-info','AdminController@systemInfo')->name('system.info');
 
-
+        // Category 
+        Route::name('category.')->prefix('category')->group(function(){
+            Route::get('/', 'CategoryController@index')->name('list');
+            Route::get('edit/{id}', 'CategoryController@edit')->name('edit');
+            Route::get('create', 'CategoryController@create')->name('create');
+            Route::post('store', 'CategoryController@store')->name('store');
+            Route::post('activate', 'CategoryController@activate')->name('activate');
+            Route::post('deactivate', 'CategoryController@deactivate')->name('deactivate');
+        });
+        // Product 
+        Route::name('product.')->prefix('product')->group(function(){
+            Route::get('/', 'ProductController@index')->name('list');
+            Route::get('rejected', 'DepositController@rejected')->name('rejected');
+            Route::get('approved', 'DepositController@approved')->name('approved');
+            Route::get('details/{id}', 'DepositController@details')->name('details');
+        });
         // Users Manager
         Route::get('users', 'ManageUsersController@allUsers')->name('users.all');
         Route::get('users/active', 'ManageUsersController@activeUsers')->name('users.active');

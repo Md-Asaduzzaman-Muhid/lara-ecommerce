@@ -7,5 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-    use HasFactory;
+    protected $guarded = ['id'];
+    public function subcategories()
+    {
+        return $this->hasMany(SubCategory::class)->orderBy('id','desc');
+    }
 }

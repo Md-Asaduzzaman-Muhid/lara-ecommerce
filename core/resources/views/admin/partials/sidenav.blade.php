@@ -96,6 +96,62 @@
                         </ul>
                     </div>
                 </li>
+                <li class="sidebar-menu-item sidebar-dropdown">
+                    <a href="javascript:void(0)" class="{{menuActive('admin.category*',3)}}">
+                        <i class="menu-icon la la-list"></i>
+                        <span class="menu-title">@lang('Manage Categories') </span>
+                    </a>
+                    <div class="sidebar-submenu {{menuActive('admin.category*',2)}} ">
+                        <ul>
+                            <li class="sidebar-menu-item {{menuActive('admin.category.list')}}">
+                                <a href="{{route('admin.category.list')}}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('Categories')</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-menu-item {{menuActive('admin.report.login.history')}}">
+                                <a href="{{route('admin.report.login.history')}}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('Sub Categories')</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="sidebar-menu-item sidebar-dropdown">
+                    <a href="javascript:void(0)" class="{{menuActive('admin.report*',3)}}">
+                        <i class="menu-icon la la-list"></i>
+                        <span class="menu-title">@lang('Manage Products') </span>
+                    </a>
+                    <div class="sidebar-submenu {{menuActive('admin.report*',2)}} ">
+                        <ul>
+                            <li class="sidebar-menu-item {{menuActive(['admin.report.transaction','admin.report.transaction.search'])}}">
+                                <a href="{{route('admin.report.transaction')}}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('Active Products')</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-menu-item {{menuActive(['admin.report.login.history','admin.report.login.ipHistory'])}}">
+                                <a href="{{route('admin.report.login.history')}}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('Inactive Products')</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-menu-item {{menuActive('admin.report.email.history')}}">
+                                <a href="{{route('admin.report.email.history')}}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('Stock Low')</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </li>
 
                 <li class="sidebar-menu-item sidebar-dropdown">
                     <a href="javascript:void(0)" class="{{menuActive('admin.gateway*',3)}}">
