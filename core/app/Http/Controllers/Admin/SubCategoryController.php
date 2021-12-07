@@ -3,45 +3,34 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\SubCategory;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class SubCategoryController extends Controller
 {
     public function __construct()
     {
         $this->activeTemplate = activeTemplate();
     }
     public function index(){
-        $pageTitle = 'Category List';
-        $emptyMessage = 'No category found.';
-        $categories  = Category::paginate(getPaginate());
-        return view('admin.category.list', compact('pageTitle', 'emptyMessage', 'categories'));
-    }
-    public function activated(){
-        $pageTitle = 'Category List';
-        $emptyMessage = 'No category found.';
-        $categories  = Category::where('status',1)->paginate(getPaginate());
-        return view('admin.category.list', compact('pageTitle', 'emptyMessage', 'categories'));
-    }
-    public function deactivated(){
-        $pageTitle = 'Category List';
-        $emptyMessage = 'No category found.';
-        $categories  = Category::where('status',0)->paginate(getPaginate());
-        return view('admin.category.list', compact('pageTitle', 'emptyMessage', 'categories'));
+        $pageTitle = 'Sub Category List';
+        $emptyMessage = 'No sub category found.';
+        $subCategories  = SubCategory::paginate(getPaginate());
+        return view('admin.sub_category.list', compact('pageTitle', 'emptyMessage', 'subCategories'));
     }
     public function create(){
-        $pageTitle = 'Create Category';
-        $emptyMessage = 'No category found.';
-        $categories  = Category::paginate(getPaginate());
-        return view('admin.category.add', compact('pageTitle', 'emptyMessage', 'categories'));
+        $pageTitle = 'Create Sub Category';
+        $emptyMessage = 'No sub category found.';
+        $subCategories  = SubCategory::paginate(getPaginate());
+        return view('admin.sub_category.add', compact('pageTitle', 'emptyMessage', 'subCategories'));
 
     }
  
     public function activate(Request $request)
     {
         $request->validate(['id' => 'required|integer']);
-        $category = Category::where('id', $request->id)->firstOrFail();
+        $category = SubCategory::where('id', $request->id)->firstOrFail();
         $category->status = 1;
         $category->save();
         $notify[] = ['success', $category->name . ' has been activated.'];
@@ -51,7 +40,7 @@ class CategoryController extends Controller
     public function deactivate(Request $request)
     {
         $request->validate(['id' => 'required|integer']);
-        $category = Category::where('id', $request->id)->firstOrFail();
+        $category = SubCategory::where('id', $request->id)->firstOrFail();
         $category->status = 0;
         $category->save();
         $notify[] = ['success', $category->name . ' has been deactivated.'];

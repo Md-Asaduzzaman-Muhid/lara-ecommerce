@@ -711,6 +711,18 @@ function imagePath()
             'size' => '800x800',
         ]
     ];
+    $data['category'] = [
+        'image' => [
+            'path' => 'assets/images/category',
+            'size' => '400x400',
+        ]
+    ];
+    $data['product'] = [
+        'image' => [
+            'path' => 'assets/images/product',
+            'size' => '400x400',
+        ]
+    ];
     $data['ticket'] = [
         'path' => 'assets/support',
     ];

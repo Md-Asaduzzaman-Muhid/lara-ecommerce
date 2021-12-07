@@ -5,7 +5,11 @@
     max-width: 200px;
 	box-shadow: 0px 10px 20px -4px  hsl(218, 75%, 87%);
 }
-
+.catThum{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
 
 

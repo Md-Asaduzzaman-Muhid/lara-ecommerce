@@ -91,10 +91,28 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
         Route::name('category.')->prefix('category')->group(function(){
             Route::get('/', 'CategoryController@index')->name('list');
             Route::get('edit/{id}', 'CategoryController@edit')->name('edit');
+            Route::post('edit/{id}', 'CategoryController@update')->name('update');
             Route::get('create', 'CategoryController@create')->name('create');
             Route::post('store', 'CategoryController@store')->name('store');
             Route::post('activate', 'CategoryController@activate')->name('activate');
             Route::post('deactivate', 'CategoryController@deactivate')->name('deactivate');
+            Route::post('delete', 'CategoryController@delete')->name('delete');
+            Route::get('activated', 'CategoryController@activated')->name('activated');
+            Route::get('deactivated', 'CategoryController@deactivated')->name('deactivated');
+        });
+
+        // Sub Category 
+        Route::name('sub_category.')->prefix('sub_category')->group(function(){
+            Route::get('/', 'SubCategoryController@index')->name('list');
+            Route::get('edit/{id}', 'SubCategoryController@edit')->name('edit');
+            Route::post('edit/{id}', 'SubCategoryController@update')->name('update');
+            Route::get('create', 'SubCategoryController@create')->name('create');
+            Route::post('store', 'SubCategoryController@store')->name('store');
+            Route::post('activate', 'SubCategoryController@activate')->name('activate');
+            Route::post('deactivate', 'SubCategoryController@deactivate')->name('deactivate');
+            Route::post('delete', 'SubCategoryController@delete')->name('delete');
+            Route::get('activated', 'SubCategoryController@activated')->name('activated');
+            Route::get('deactivated', 'SubCategoryController@deactivated')->name('deactivated');
         });
         // Product 
         Route::name('product.')->prefix('product')->group(function(){

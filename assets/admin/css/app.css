@@ -6675,6 +6675,15 @@ th.w-85 {
     background-color: #03061b !important;
 }
 
+
+.catThum{
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+
+
 @media (max-width: 1199px) {
     .dark-version .table-responsive--lg thead {
         display: none;

@@ -20,17 +20,14 @@
                             <tbody>
                             @forelse($categories as $category)
                                 <tr>
-                                    <td data-label="@lang('Gateway')">
-                                        <div class="user">
-                                           <span class="name">{{__($category->title)}}</span>
-                                        </div>
+                                    <td class="catThum"  data-label="@lang('Thum')" style="background-image: url('{{getImage(imagePath()['category']['image']['path'].'/'. $category->image,imagePath()['category']['image']['path'])}}')">
                                     </td>
 
-                                    <td data-label="@lang('Supported Currency')">
-                                        {{ $category->title }}
+                                    <td data-label="@lang('Title')">
+                                        {{ __($category->title) }}
                                     </td>
-                                    <td data-label="@lang('Enabled Currency')">
-                                        {{ $category->description }}
+                                    <td data-label="@lang('Description')">
+                                        {{ __(shortDescription($category->description)) }}
                                     </td>
 
 
@@ -45,16 +42,18 @@
                                         <a href="{{ route('admin.category.edit', $category->id) }}" class="icon-btn editGatewayBtn" data-toggle="tooltip" title="" data-original-title="@lang('Edit')">
                                             <i class="la la-pencil"></i>
                                         </a>
-
                                         @if($category->status == 0)
-                                            <button data-toggle="modal" data-target="#activateModal" class="icon-btn bg--success ml-1 activateBtn" data-id="{{$category->id}}" data-name="{{__($category->title)}}" data-original-title="@lang('Enable')">
+                                            <button data-toggle="modal" data-target="#activateModal" class="icon-btn bg--success ml-1 activateBtn" data-id="{{$category->id}}" data-title="{{__($category->title)}}" data-original-title="@lang('Activate')">
                                                 <i class="la la-eye"></i>
                                             </button>
                                         @else
-                                            <button data-toggle="modal" data-target="#deactivateModal" class="icon-btn bg--danger ml-1 deactivateBtn" data-id="{{$category->id}}" data-name="{{__($category->title)}}" data-original-title="@lang('Disable')">
+                                            <button data-toggle="modal" data-target="#deactivateModal" class="icon-btn bg--danger ml-1 deactivateBtn" data-id="{{$category->id}}" data-title="{{__($category->title)}}" data-original-title="@lang('Deactivate')">
                                                 <i class="la la-eye-slash"></i>
                                             </button>
                                         @endif
+                                        <button  data-toggle="modal" class="icon-btn bg--danger deleteBtn" data-target="#deleteModal" data-id="{{$category->id}}" data-original-title="@lang('Delete')">
+                                            <i class="la la-trash"></i>
+                                        </button>
                                     </td>
                                 </tr>
                             @empty
@@ -81,14 +80,14 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">@lang('Payment Method Activation Confirmation')</h5>
+                    <h5 class="modal-title">@lang('Category Activation Confirmation')</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="{{ route('admin.category.activate')}}" method="POST">
                     @csrf
-                    <input type="hidden" name="code">
+                    <input type="hidden" name="id">
                     <div class="modal-body">
                         <p>@lang('Are you sure to activate') <span class="font-weight-bold method-name"></span> @lang('method')?</p>
                     </div>
@@ -107,20 +106,45 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">@lang('Payment Method Disable Confirmation')</h5>
+                    <h5 class="modal-title">@lang('Category Disable Confirmation')</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <form action="{{route('admin.category.deactivate')}}" method="POST">
                     @csrf
-                    <input type="hidden" name="code">
+                    <input type="hidden" name="id">
                     <div class="modal-body">
-                        <p>@lang('Are you sure to disable') <span class="font-weight-bold method-name"></span> @lang('method')?</p>
+                        <p>@lang('Are you sure to deactivate') <span class="font-weight-bold method-name"></span> @lang('method')?</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn--dark" data-dismiss="modal">@lang('Close')</button>
                         <button type="submit" class="btn btn--danger">@lang('Disable')</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- DELETE MODAL --}}
+    <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@lang('Category Delete Confirmation')</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="{{route('admin.category.delete')}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="id">
+                    <div class="modal-body">
+                        <p>@lang('Are you sure to delete') <span class="font-weight-bold method-name"></span> @lang('method')?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn--dark" data-dismiss="modal">@lang('Close')</button>
+                        <button type="submit" class="btn btn--danger">@lang('Delete')</button>
                     </div>
                 </form>
             </div>
@@ -141,6 +165,10 @@
             $(document).on('click','.deactivateBtn',function () {
                 var modal = $('#deactivateModal');
                 modal.find('.method-title').text($(this).data('title'));
+                modal.find('input[name=id]').val($(this).data('id'));
+            });
+            $(document).on('click','.deleteBtn',function () {
+                var modal = $('#deleteModal');
                 modal.find('input[name=id]').val($(this).data('id'));
             });
         })(jQuery);

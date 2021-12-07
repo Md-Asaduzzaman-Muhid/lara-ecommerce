@@ -99,24 +99,58 @@
                 <li class="sidebar-menu-item sidebar-dropdown">
                     <a href="javascript:void(0)" class="{{menuActive('admin.category*',3)}}">
                         <i class="menu-icon la la-list"></i>
-                        <span class="menu-title">@lang('Manage Categories') </span>
+                        <span class="menu-title">@lang('Categories') </span>
                     </a>
                     <div class="sidebar-submenu {{menuActive('admin.category*',2)}} ">
                         <ul>
                             <li class="sidebar-menu-item {{menuActive('admin.category.list')}}">
                                 <a href="{{route('admin.category.list')}}" class="nav-link">
                                     <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Categories')</span>
+                                    <span class="menu-title">@lang('All ')</span>
                                 </a>
                             </li>
 
-                            <li class="sidebar-menu-item {{menuActive('admin.report.login.history')}}">
-                                <a href="{{route('admin.report.login.history')}}" class="nav-link">
+                            <li class="sidebar-menu-item {{menuActive('admin.category.activated')}}">
+                                <a href="{{route('admin.category.activated')}}" class="nav-link">
                                     <i class="menu-icon las la-dot-circle"></i>
-                                    <span class="menu-title">@lang('Sub Categories')</span>
+                                    <span class="menu-title">@lang('Activated ')</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item {{menuActive('admin.category.deactivated')}}">
+                                <a href="{{route('admin.category.deactivated')}}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('Deactivated ')</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="sidebar-menu-item sidebar-dropdown">
+                    <a href="javascript:void(0)" class="{{menuActive('admin.sub_category*',3)}}">
+                        <i class="menu-icon la la-list"></i>
+                        <span class="menu-title">@lang('Sub Categories') </span>
+                    </a>
+                    <div class="sidebar-submenu {{menuActive('admin.sub_category*',2)}} ">
+                        <ul>
+                            <li class="sidebar-menu-item {{menuActive('admin.sub_category.list')}}">
+                                <a href="{{route('admin.sub_category.list')}}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('All')</span>
                                 </a>
                             </li>
 
+                            <li class="sidebar-menu-item {{menuActive('admin.sub_category.activated')}}">
+                                <a href="{{route('admin.sub_category.activated')}}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('Activated')</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-menu-item {{menuActive('admin.sub_category.deactivated')}}">
+                                <a href="{{route('admin.sub_category.deactivated')}}" class="nav-link">
+                                    <i class="menu-icon las la-dot-circle"></i>
+                                    <span class="menu-title">@lang('Deactivated')</span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
