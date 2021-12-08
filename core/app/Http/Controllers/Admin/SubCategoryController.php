@@ -17,13 +17,29 @@ class SubCategoryController extends Controller
         $pageTitle = 'Sub Category List';
         $emptyMessage = 'No sub category found.';
         $subCategories  = SubCategory::paginate(getPaginate());
-        return view('admin.sub_category.list', compact('pageTitle', 'emptyMessage', 'subCategories'));
+        $categories  = Category::with('subCategories')->paginate(getPaginate());
+        return view('admin.sub_category.list', compact('pageTitle', 'emptyMessage', 'subCategories','categories'));
+    }
+    public function activated(){
+        $pageTitle = 'Category List';
+        $emptyMessage = 'No category found.';
+        $subCategories  = SubCategory::where('status',1)->paginate(getPaginate());
+        $categories  = Category::with('subCategories')->where('status',1)->paginate(getPaginate());
+        return view('admin.category.list', compact('pageTitle', 'emptyMessage', 'subCategories','categories'));
+    }
+    public function deactivated(){
+        $pageTitle = 'Category List';
+        $emptyMessage = 'No category found.';
+        $subCategories  = SubCategory::where('status',0)->paginate(getPaginate());
+        $categories  = Category::with('subCategories')->where('status',0)->paginate(getPaginate());
+        return view('admin.category.list', compact('pageTitle', 'emptyMessage', 'subCategories','categories'));
     }
     public function create(){
         $pageTitle = 'Create Sub Category';
         $emptyMessage = 'No sub category found.';
         $subCategories  = SubCategory::paginate(getPaginate());
-        return view('admin.sub_category.add', compact('pageTitle', 'emptyMessage', 'subCategories'));
+        $categories  = Category::get();
+        return view('admin.sub_category.add', compact('pageTitle', 'emptyMessage', 'subCategories','categories'));
 
     }
  
@@ -47,13 +63,14 @@ class SubCategoryController extends Controller
         return back()->withNotify($notify);
     }
     public function edit($id){
-        $pageTitle = 'Edit Category';
-        $emptyMessage = 'No category found.';
-        $category  = Category::where('id',$id)->first();
-        // dd($category);
-        return view('admin.category.edit', compact('pageTitle', 'emptyMessage', 'category'));
+        $pageTitle = 'Edit Sub Category';
+        $emptyMessage = 'No sub category found.';
+        $category  = SubCategory::where('id',$id)->first();
+        $categories  = Category::get();
+        return view('admin.sub_category.edit', compact('pageTitle', 'emptyMessage', 'category', 'categories'));
     }
     public function store(Request $request){
+        // dd($request);
         $path = imagePath()['category']['image']['path'];
         $size = imagePath()['category']['image']['size'];
         $filename = '';
@@ -66,17 +83,18 @@ class SubCategoryController extends Controller
                 return back()->withNotify($notify);
             }
         }
-        $category = new Category();
-        $category->image = $filename;
-        $category->title = $request->title;
-        $category->description = $request->description;
-        $category->save();
+        $subCategory = new SubCategory();
+        $subCategory->category_id = $request->pcategory;
+        $subCategory->image = $filename;
+        $subCategory->title = $request->title;
+        $subCategory->description = $request->description;
+        $subCategory->save();
 
-        $notify[] = ['success', $category->title . ' has been added.'];
+        $notify[] = ['success', $subCategory->title . ' has been added.'];
         return back()->withNotify($notify);
     }
     public function update(Request $request, $id){
-        $category  = Category::where('id',$id)->first();
+        $category  = SubCategory::where('id',$id)->first();
         $path = imagePath()['category']['image']['path'];
         $size = imagePath()['category']['image']['size'];
         $filename = $category->image;
@@ -97,7 +115,7 @@ class SubCategoryController extends Controller
         return back()->withNotify($notify);
     }
     public function delete(Request $request){
-        $category  = Category::where('id',$request->id)->first();
+        $category  = SubCategory::where('id',$request->id)->first();
 
         $path = imagePath()['category']['image']['path'];
         if (!empty($category->image)) {

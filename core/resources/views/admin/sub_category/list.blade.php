@@ -1,28 +1,30 @@
 @extends('admin.layouts.app')
 
 @section('panel')
-    <div class="row">
 
+    <div class="row">
         <div class="col-lg-12">
             <div class="card b-radius--10 ">
                 <div class="card-body">
+                @foreach($categories as $category)
+                    <h6 class="page-title btn--primary p-2 border-bottom">{{$category->title}}</h6>
+                    @if($category->subCategories)
                     <div class="table-responsive--sm table-responsive">
                         <table class="table table--light style--two custom-data-table">
                             <thead>
-                            <tr>
-                                <th>@lang('Thumbnil')</th>
-                                <th>@lang('Title')</th>
-                                <th>@lang('Description')</th>
-                                <th>@lang('Status')</th>
-                                <th>@lang('Action')</th>
-                            </tr>
+                                <tr>
+                                    <th>@lang('Thumbnil')</th>
+                                    <th>@lang('Title')</th>
+                                    <th>@lang('Description')</th>
+                                    <th>@lang('Status')</th>
+                                    <th>@lang('Action')</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @forelse($subCategories as $subCategory)
+                            @forelse($category->subCategories as $subCategory)
                                 <tr>
                                     <td class="catThum"  data-label="@lang('Thum')" style="background-image: url('{{getImage(imagePath()['category']['image']['path'].'/'. $subCategory->image,imagePath()['category']['image']['path'])}}')">
                                     </td>
-
                                     <td data-label="@lang('Title')">
                                         {{ __($subCategory->title) }}
                                     </td>
@@ -65,6 +67,8 @@
                             </tbody>
                         </table><!-- table end -->
                     </div>
+                    @endif
+                    @endforeach
                 </div>
             </div><!-- card end -->
         </div>
@@ -80,7 +84,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">@lang('Category Activation Confirmation')</h5>
+                    <h5 class="modal-title">@lang('Sub Category Activation Confirmation')</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -106,7 +110,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">@lang('Category Disable Confirmation')</h5>
+                    <h5 class="modal-title">@lang('Sub Category Disable Confirmation')</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -131,7 +135,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">@lang('Category Delete Confirmation')</h5>
+                    <h5 class="modal-title">@lang('Sub Category Delete Confirmation')</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

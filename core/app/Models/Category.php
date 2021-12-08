@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     protected $guarded = ['id'];
-    public function subcategories()
+    public function subCategories()
     {
-        return $this->hasMany(SubCategory::class)->orderBy('id','desc');
+        return $this->hasMany(SubCategory::class);
     }
 }

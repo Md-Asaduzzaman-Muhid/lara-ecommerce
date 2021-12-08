@@ -1602,6 +1602,7 @@ CREATE TABLE `products` (
   `size` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `weight` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image_gallery` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'image gallery',
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '0: inactive, 1: active',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL

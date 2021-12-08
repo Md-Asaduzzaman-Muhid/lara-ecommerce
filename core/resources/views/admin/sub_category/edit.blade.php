@@ -21,14 +21,18 @@
                                     <div class="row mt-4 mb-none-15">
                                         <div class="col-12 mb-15">
                                             <div class="input-group">
-                                                <label class="w-100 font-weight-bold">@lang('Category title') <span class="text-danger">*</span></label>
+                                                <label class="w-100 font-weight-bold">@lang('Sub Category title') <span class="text-danger">*</span></label>
                                                 <input type="text" class="form-control " placeholder="@lang('Method Name')" name="title" value="{{ $category->title }}"/>
                                             </div>
                                         </div>
                                         <div class="col-12 mb-15">
-                                            <div class="input-group">
-                                                <label class="w-100 font-weight-bold">@lang('Category short description') <span class="text-danger">*</span></label>
-                                                <textarea rows="3" class="form-control border-radius-5" name="short_description">{{ old('instruction') }}</textarea>
+                                            <div class="form-group pcategory">
+                                                <label class="form-control-label font-weight-bold"> @lang('Select Parent Category')</label>
+                                                <select class="select2-basic" name="pcategory" required>
+                                                    @foreach($categories as $categorySingle)
+                                                    <option value="{{ $categorySingle->id }}" @if($categorySingle->title == $category->title) selected @endif>{{ __($categorySingle->title) }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -40,7 +44,7 @@
                                     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                         <div class="card border--primary mt-3">
 
-                                            <h5 class="card-header bg--primary">@lang('Category Description')</h5>
+                                            <h5 class="card-header bg--primary">@lang('Sub Category Description')</h5>
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <textarea rows="8" class="form-control border-radius-5 nicEdit" name="description">{{ __(@$category->description)  }}</textarea>
@@ -64,7 +68,7 @@
 
 
 @push('breadcrumb-plugins')
-    <a href="{{ route('admin.category.list') }}" class="btn btn-sm btn--primary box--shadow1 text--small"><i class="la la-fw la-backward"></i> @lang('Go Back') </a>
+    <a href="{{ route('admin.sub_category.list') }}" class="btn btn-sm btn--primary box--shadow1 text--small"><i class="la la-fw la-backward"></i> @lang('Go Back') </a>
 @endpush
 
 @push('script')
@@ -113,7 +117,10 @@
             $(document).on('click', '.removeBtn', function () {
                 $(this).closest('.user-data').remove();
             });
-
+            $('.select2-basic').select2({
+                dropdownParent: $('.pcategory')
+            });
+            $('select[name=pcategory]').val();
             @if(old('currency'))
             $('input[name=currency]').trigger('input');
             @endif
